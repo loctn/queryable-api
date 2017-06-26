@@ -1,0 +1,12 @@
+{
+  "name": "populate",
+  "version": "0.0.0",
+  "description": "Parses dataset and populates database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "byline": "^5.0.0"
+  }
+}

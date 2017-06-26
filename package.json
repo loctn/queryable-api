@@ -4,7 +4,14 @@
   "description": "Coding Challenge - Queryable API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine"
   },
-  "author": "Loc Nguyen <loc2000@gmail.com> (http://locwin.com/)"
+  "author": "Loc Nguyen <loc2000@gmail.com> (http://locwin.com/)",
+  "dependencies": {
+    "express": "^4.15.3",
+    "mysql": "^2.13.0"
+  },
+  "devDependencies": {
+    "jasmine": "^2.6.0"
+  }
 }
