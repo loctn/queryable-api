@@ -2,8 +2,10 @@
 
 const mysql = require('mysql');
 const express = require('express');
-const { moneyStrToNum, numToMoneyStr } = require('../lib/utils');
+const { moneyStrToNum, numToMoneyStr } = require('./lib/utils');
 
+
+const RESULTS_LIMIT = 100;
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -42,6 +44,7 @@ app.get('/providers', (req, res) => {
     }));
 
     res.json(json);
+    console.log(`Sent ${json.length} results`);
   });
 });
 
@@ -64,7 +67,7 @@ function buildQuery(q) {
   if (d !== u && d >= 0) where.push('average_covered_charges >= ' + moneyStrToNum(d));
   if (e !== u && e >= 0) where.push('average_medicare_payments <= ' + moneyStrToNum(e));
   if (f !== u && f >= 0) where.push('average_medicare_payments >= ' + moneyStrToNum(f));
-  if (g) where.push('state = ' + g.substr(0, 2));
+  if (g) where.push(`provider_state = '${g.substr(0, 2)}'`);
 
   return `
     SELECT
@@ -82,9 +85,10 @@ function buildQuery(q) {
       testing
     WHERE
       ${where.join(' AND ')}
+    LIMIT ${q.start || 0}, ${Math.min(RESULTS_LIMIT, q.limit || RESULTS_LIMIT)}
   `;
 }
 
-app.listen(8080, () => {
-  console.log('Listening on 8080...');
+app.listen(1234, () => {
+  console.log('Listening on 1234...');
 });
